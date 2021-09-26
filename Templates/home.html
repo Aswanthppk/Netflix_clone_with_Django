@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Netflix Clone</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+  </head>
+  <body>
+    <!-- nav -->
+    <div id="nav" class="navbar">
+        <img class="logo" src="/static/img/logo.svg" alt="" />
+        <ul class="nav">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="">All Movies</a></li>
+          <li><a href="">Tv Shows</a></li>
+          <li><a href="">Best Ratings</a></li>
+          <li><a href="{% url 'logout' %}" style="color: red;">Logout</a></li>
+          <li><a href=""><span>Contact Us</span></a></li>
+        </ul>   
+    </div>
+    
+
+    <!-- header -->
+    {% for list in list  %}
+    
+    <header class="banner" style="background-image: url('{{list.bg_image.url}}');">
+      <div class="banner__contents">
+    
+    
+        <h1 class="banner__title">{{list.title}}</h1>
+        
+        <div class="banner__buttons">
+        
+          <a class ='banner__button' href="{{list.slug}}">Read More</a>
+          
+          <button class="banner__button">My List</button>
+        </div>
+        <h1 class="banner__description">
+          {{list.short_description}}
+        </h1>
+      </div>
+      <div class="banner--fadeBottom"></div>
+    </header>
+{% endfor %}
+    <!-- Netflix Originals -->
+    
+    <div class="row">
+      <h2>NETFLIX ORIGINALS</h2>
+      
+      <div class="row__posters" >
+      {% for responce in trending_tv_result.results  %}
+        <img class="row__poster row__posterLarge" src="https://image.tmdb.org/t/p/w300{{responce.poster_path}}" alt="" />
+
+        {% endfor %}
+      </div>
+      
+     
+    </div>
+
+    <!-- Trending Now -->
+    <div class="row">
+      <h2>Trending Now</h2>
+      <div class="row__posters">
+              {% for responce in trending_result.results  %}
+        <img class="row__poster row__posterLarge" src="https://image.tmdb.org/t/p/w300{{responce.poster_path}}" alt="" />
+
+        {% endfor %}      </div>
+    </div>
+
+    <!-- Action Movies -->
+    <div class="row">
+      <h2>Action Movies</h2>
+      <div class="row__posters">
+      {% for responce in action_result.results %}
+        <img class="row__poster row__posterLarge" src="https://image.tmdb.org/t/p/w300{{responce.poster_path}}" alt="" />
+
+{% endfor %}
+      </div>
+    </div>
+
+    <!-- Comedy Movies -->
+    <div class="row">
+      <h2>Comedy Movies</h2>
+      <div class="row__posters">
+      {% for responce in comedy_result.results %}
+        <img class="row__poster" src="https://image.tmdb.org/t/p/w300{{responce.poster_path}}" alt="" />
+{% endfor %}
+
+      </div>
+    </div>
+
+    <!-- Horror Movies -->
+    <div class="row">
+      <h2>Romance Movies</h2>
+      <div class="row__posters">
+      {% for responce in romance_result.results %}
+        <img class="row__poster" src="https://image.tmdb.org/t/p/w300{{responce.poster_path}}" alt="" />
+{% endfor %}
+
+      </div>
+    </div>
+
+    <!-- Romance Movies -->
+ 
+
+    <script>
+      const nav = document.getElementById('nav');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY >= 100) {
+          nav.classList.add('nav__black');
+        } else {
+          nav.classList.remove('nav__black');
+        }
+      });
+    </script>
+  </body>
+</html>

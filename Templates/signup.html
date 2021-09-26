@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"  />
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <title>Netflix - Watch TV Shows Online, Watch Movies Online</title>
+</head>
+
+<body>
+  <header class="showcase">
+
+    <div class="logo">
+      <img src="https://i.ibb.co/r5krrdz/logo.png">
+    </div>
+
+    <div class="showcase-content">
+      <div class="formm">
+     
+        <form method='POST' name='signup'>
+         {% csrf_token %}
+          <h1>Sign Up</h1>
+          <div class="info">
+            <input class="email" type="Text" placeholder="User Name" name='user_name' required> <br>
+            <input class="email" type="email" placeholder="Email or phone number" name='email' required> <br>
+            <input class="email" type="password" placeholder="Password" name='password' required> <br>  
+            <input class='email'  type='password' placeholder='Conform Password' name='conform' required>
+          </div>
+      {% if msg  %}
+      <h4 id='msg' class="input_error">{{msg}}</h4>
+{% endif %}
+          <div class="btn">
+            <button id='btn' class="btn-primary" type="submit" >Sign Up</button>
+          </div>
+          <div class="help">
+            <div>
+              <input value="true" type="checkbox"><label>Remember me</label>
+            </div>
+
+            <a href="{% url 'login' %}">Login</a>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      

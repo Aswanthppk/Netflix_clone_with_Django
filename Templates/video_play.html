@@ -1,0 +1,85 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Play</title>
+      <link rel="stylesheet" type="text/css" href="{% static 'css/video_play.css' %}">
+      <script src="https://kit.fontawesome.com/d6aaafd6e0.js"></script>
+      <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+      <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
+    
+  </head>
+  <body>
+    
+
+    <section class="landingpg" id='home' style="background-image: url(https://image.tmdb.org/t/p/original/{{responce.backdrop_path}});">
+      <header>
+        <img class="logo" src="/static/img/logo.svg" alt="" />
+        <ul class="nav">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="">All Movies</a></li>
+          <li><a href="">Tv Shows</a></li>
+          <li><a href="">Best Ratings</a></li>
+          <li><a href="{% url 'logout' %}" style="color: red;">Logout</a></li>
+          <li><a href=""><span>Contact Us</span></a></li>
+        </ul>
+      </header>
+      {% for list in list %}
+      
+      <div class="content">
+        <div class="text-area"> 
+          <h1 class="text-area">{{list.title}}</h1>
+          <h6 class="text-area">({{responce.first_air_date}})</h6>
+          <h4 class="text-area">Drama Horror Action Family - 2h 28m,{{video.key}}</h4>
+
+          <h3 class="text-area" style="color: #487EFC;"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></h3>
+           
+          <h2 class="text-area">{{responce.overview}}</h2>
+          
+          <a  class="btn" onclick="togglevideo();"><i class="fa fa-play-circle-o" aria-hidden="true"></i> Play Now</a>
+          
+        </div>
+
+      </div>
+      <div class="trailer">
+      
+  <video
+    id="vid1"
+    class="video-js vjs-default-skin"
+    controls
+    width="640" height="480"
+    poster="https://image.tmdb.org/t/p/original{{responce.backdrop_path}}"
+    
+  >
+  </video>
+        
+        <img src="{% static 'img/close.png' %}" alt="" class="close" onclick="togglevideo();">
+      </div>
+
+    </section>
+    {% endfor %}
+    <script>
+      function togglevideo() {
+        const trailer = document.querySelector('.trailer');
+        const video=document.querySelector('video');
+        trailer.classList.toggle('active')
+        
+        const player = videojs('vid1', {}, () => {
+        player.src({ type: 'video/youtube', src: 'https://www.youtube.com/watch?v={{video.key}}' })
+        player.pause();
+        })
+      }
+        
+        
+  // player.play()
+
+    </script>
+    
+  <script src="https://vjs.zencdn.net/7.0.3/video.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.5.0/Youtube.min.js"></script>
+    
+     
+  </body>
+</html>
